@@ -14,11 +14,22 @@ func TestParseLine(t *testing.T) {
         expected Output
     }{
         {
-            fixture: "../fixtures/headings-hash.txt",
+            fixture: "../fixtures/headings.txt",
             expected: Output{
                 Sections: []Section{
-                    {"animals", []string{"cats", "tigers", "dogs", "wolves"}},
-                    {"things", []string{"pen", "book", "table"}},
+                    {"animals", []string{"cats", "tigers", "dogs", "wolves"}, []Section{}},
+                    {"things", []string{"pen", "book", "table"}, []Section{}},
+                },
+            },
+        },
+        {
+            fixture: "../fixtures/subheadings.txt",
+            expected: Output{
+                Sections: []Section{
+                    {"animals", []string{"elephant"}, []Section{
+                        {"felines", []string{"cats", "tigers"}, []Section{}},
+                        {"canines", []string{"dogs", "wolves"}, []Section{}},
+                    }},
                 },
             },
         },
@@ -39,6 +50,4 @@ func TestParseLine(t *testing.T) {
         }
         assert.Equal(t, tc.expected, out)
     }
-
 }
-
