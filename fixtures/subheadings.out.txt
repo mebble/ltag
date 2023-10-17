@@ -1,0 +1,5 @@
+elephant #animals
+cats #animals #felines
+tigers #animals #felines
+dogs #animals #canines
+wolves #animals #canines

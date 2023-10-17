@@ -1,0 +1,7 @@
+cats #animals
+tigers #animals
+dogs #animals
+wolves #animals
+pen #things
+book #things
+table #things

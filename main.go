@@ -14,6 +14,7 @@ func main() {
 		line := scanner.Text()
 		out.ParseLine(line)
 	}
-
-	fmt.Println(out.Sections)
+	for _, line := range out.Serialise() {
+		fmt.Println(line)
+	}
 }

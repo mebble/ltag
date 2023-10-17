@@ -26,6 +26,21 @@ func (o *Output) ParseLine(line string) {
 	}
 }
 
+func (o *Output) Serialise() []string {
+	res := []string{}
+	for _, s := range o.Sections {
+		for _, l := range s.Lines {
+			res = append(res, l+" "+"#"+s.Tag)
+		}
+		for _, sub := range s.Subs {
+			for _, l := range sub.Lines {
+				res = append(res, l+" "+"#"+s.Tag+" "+"#"+sub.Tag)
+			}
+		}
+	}
+	return res
+}
+
 func (o *Output) parseTagLine(line string) {
 	tag := strings.Trim(line, "# \n")
 	if isSub && len(o.Sections) > 0 {
