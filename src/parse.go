@@ -1,6 +1,7 @@
 package ltag
 
 import (
+	"github.com/gosimple/slug"
 	"strings"
 )
 
@@ -29,12 +30,14 @@ func (o *Output) ParseLine(line string) {
 func (o *Output) Serialise() []string {
 	res := []string{}
 	for _, s := range o.Sections {
+		tag := slug.Make(s.Tag)
 		for _, l := range s.Lines {
-			res = append(res, l+" "+"#"+s.Tag)
+			res = append(res, l+" "+"#"+tag)
 		}
 		for _, sub := range s.Subs {
+			subTag := slug.Make(sub.Tag)
 			for _, l := range sub.Lines {
-				res = append(res, l+" "+"#"+s.Tag+" "+"#"+sub.Tag)
+				res = append(res, l+" "+"#"+tag+" "+"#"+subTag)
 			}
 		}
 	}

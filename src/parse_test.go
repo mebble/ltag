@@ -77,6 +77,16 @@ func TestSerialise(t *testing.T) {
 			},
 			expected: "../fixtures/subheadings.out.txt",
 		},
+		{
+			input: Output{
+				Sections: []Section{
+					{"To Be Slugged", []string{"elephant", "cats and dogs"}, []Section{
+						{"Sub Slugged", []string{"mice and cheese"}, []Section{}},
+					}},
+				},
+			},
+			expected: "../fixtures/slug.out.txt",
+		},
 	}
 
 	for _, tc := range tests {

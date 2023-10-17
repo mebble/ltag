@@ -1,0 +1,3 @@
+elephant #to-be-slugged
+cats and dogs #to-be-slugged
+mice and cheese #to-be-slugged #sub-slugged
