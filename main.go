@@ -1,19 +1,19 @@
 package main
 
 import (
-    "bufio"
-    "os"
-    "fmt"
-    ltag "github.com/mebble/ltag/src"
+	"bufio"
+	"fmt"
+	ltag "github.com/mebble/ltag/src"
+	"os"
 )
 
 func main() {
-    out := ltag.Output{Sections: []ltag.Section{}}
-    scanner := bufio.NewScanner(os.Stdin)
-    for scanner.Scan() {
-        line := scanner.Text()
-        out.ParseLine(line)
-    }
+	out := ltag.Output{Sections: []ltag.Section{}}
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		line := scanner.Text()
+		out.ParseLine(line)
+	}
 
-    fmt.Println(out.Sections)
+	fmt.Println(out.Sections)
 }
