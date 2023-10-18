@@ -33,6 +33,15 @@ func TestParseLine(t *testing.T) {
 				},
 			},
 		},
+		{
+			fixture: "../fixtures/noheadings.txt",
+			expected: Output{
+				Sections: []Section{
+					// TODO: create separate sections when separated by newlines
+					{"", []string{"one", "two", "three"}, []Section{}},
+				},
+			},
+		},
 	}
 
 	for _, tc := range tests {
@@ -86,6 +95,15 @@ func TestSerialise(t *testing.T) {
 				},
 			},
 			expected: "../fixtures/slug.out.txt",
+		},
+		{
+			input: Output{
+				Sections: []Section{
+					// TODO: see TODO above
+					{"", []string{"one", "two", "three"}, []Section{}},
+				},
+			},
+			expected: "../fixtures/noheadings.out.txt",
 		},
 	}
 

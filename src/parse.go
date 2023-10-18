@@ -30,14 +30,14 @@ func (o *Output) ParseLine(line string) {
 func (o *Output) Serialise() []string {
 	res := []string{}
 	for _, s := range o.Sections {
-		tag := slug.Make(s.Tag)
+		tag := stringifyTag(s.Tag)
 		for _, l := range s.Lines {
-			res = append(res, l+" "+"#"+tag)
+			res = append(res, l+tag)
 		}
 		for _, sub := range s.Subs {
-			subTag := slug.Make(sub.Tag)
+			subTag := stringifyTag(sub.Tag)
 			for _, l := range sub.Lines {
-				res = append(res, l+" "+"#"+tag+" "+"#"+subTag)
+				res = append(res, l+tag+subTag)
 			}
 		}
 	}
@@ -62,6 +62,12 @@ func (o *Output) parseEmptyLine(line string) {
 }
 
 func (o *Output) parseNormalLine(line string) {
+	if len(o.Sections) == 0 {
+		s := Section{Tag: "", Lines: []string{line}, Subs: []Section{}}
+		o.Sections = append(o.Sections, s)
+		return
+	}
+
 	lastsection := &o.Sections[len(o.Sections)-1]
 	if isSub && len(lastsection.Subs) > 0 {
 		lastSub := &lastsection.Subs[len(lastsection.Subs)-1]
@@ -69,4 +75,11 @@ func (o *Output) parseNormalLine(line string) {
 		return
 	}
 	lastsection.Lines = append(lastsection.Lines, line)
+}
+
+func stringifyTag(tag string) string {
+	if tag != "" {
+		tag = " " + "#" + slug.Make(tag)
+	}
+	return tag
 }
