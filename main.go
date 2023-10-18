@@ -3,18 +3,26 @@ package main
 import (
 	"bufio"
 	"fmt"
-	ltag "github.com/mebble/ltag/src"
 	"os"
 )
 
 func main() {
-	out := ltag.Output{Sections: []ltag.Section{}}
 	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
+	for {
+		hasMore := scanner.Scan()
+		if !hasMore {
+			break
+		}
 		line := scanner.Text()
-		out.ParseLine(line)
-	}
-	for _, line := range out.Serialise() {
-		fmt.Println(line)
+		n, err := os.Stdout.Write([]byte(line))
+
+		// We never get the error when running run1.sh nor run2.sh
+		// Through `source ./benchmark/<run>.sh`
+		if err != nil {
+			fmt.Println("ERROR")
+			fmt.Println(fmt.Sprintf("\nn: %d\tlen(line): %d", n, len(line)))
+			fmt.Println(err)
+		}
+		fmt.Println(fmt.Sprintf("\nn: %d\tlen(line): %d", n, len(line)))
 	}
 }
