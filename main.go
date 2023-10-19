@@ -8,13 +8,13 @@ import (
 )
 
 func main() {
-	out := ltag.Output{Sections: []ltag.Section{}}
+	buf := ltag.StreamBuffer{}
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()
-		out.ParseLine(line)
-	}
-	for _, line := range out.Serialise() {
-		fmt.Println(line)
+		tagged, ok := buf.Transform(line)
+		if ok {
+			fmt.Println(tagged)
+		}
 	}
 }
