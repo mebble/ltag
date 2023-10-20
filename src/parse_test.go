@@ -89,16 +89,6 @@ func TestSerialise(t *testing.T) {
 		{
 			input: Output{
 				Sections: []Section{
-					{"To Be Slugged", []string{"elephant", "cats and dogs"}, []Section{
-						{"Sub Slugged", []string{"mice and cheese"}, []Section{}},
-					}},
-				},
-			},
-			expected: "../fixtures/slug.out.txt",
-		},
-		{
-			input: Output{
-				Sections: []Section{
 					// TODO: see TODO above
 					{"", []string{"one", "two", "three"}, []Section{}},
 				},
