@@ -25,6 +25,10 @@ func TestTransform(t *testing.T) {
 			inputFile: "../fixtures/noheadings.txt",
 			expectedFile: "../fixtures/noheadings.out.txt",
 		},
+		{
+			inputFile: "../fixtures/inline.txt",
+			expectedFile: "../fixtures/inline.out.txt",
+		},
 	}
 
 	for _, tc := range tests {

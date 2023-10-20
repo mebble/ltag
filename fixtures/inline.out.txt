@@ -1,0 +1,4 @@
+cat #animal #small #feline
+rat #animal #small
+parrot #animal
+dog #animal #canine #bestfriend

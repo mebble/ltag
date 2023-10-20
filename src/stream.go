@@ -36,19 +36,21 @@ func (s *StreamBuffer) transformEmptyLine(line string) (string, bool) {
 }
 
 func (s *StreamBuffer) transformNormalLine(line string) (string, bool) {
-	if len(s.Tags) == 0 {
-		return line, true
+	var inlineTagsStr string
+	parts := strings.Split(line, "# ")
+	if len(parts) > 1 {
+		line = strings.Trim(parts[0], " ")
+		for _, p := range parts[1:] {
+			inlineTagsStr = inlineTagsStr + tagify(p)
+		}
 	}
 
-	if len(s.Tags) == 1 {
-		tag := s.Tags[len(s.Tags)-1]
-		return line + tagify(tag), true
+	var tagsStr string
+	for _, tag := range s.Tags {
+		tagsStr = tagsStr + tagify(tag)
 	}
 
-	topTag := s.Tags[len(s.Tags)-2]
-	subTag := s.Tags[len(s.Tags)-1]
-	tagsStr := tagify(topTag) + tagify(subTag)
-	return line + tagsStr, true
+	return line + tagsStr + inlineTagsStr, true
 }
 
 func tagify(tag string) string {

@@ -1,0 +1,6 @@
+# animal
+cat # small # feline
+rat # small
+parrot
+# canine
+dog # bestfriend
