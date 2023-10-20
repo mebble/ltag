@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	buf := ltag.StreamBuffer{}
+	buf := ltag.NewStreamBuffer("#", "#")
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()

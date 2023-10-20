@@ -48,7 +48,7 @@ func TestTransform(t *testing.T) {
 		}
 		defer expectedFile.Close()
 
-		s := StreamBuffer{}
+		s := NewStreamBuffer("#", "#")
 
 		inputScanner := bufio.NewScanner(inputFile)
 		expectedScanner := bufio.NewScanner(expectedFile)
