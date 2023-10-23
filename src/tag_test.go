@@ -8,7 +8,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestTransform(t *testing.T) {
+func TestTagTransform(t *testing.T) {
+	// the tests kinda follow this pattern where each successive test is more constrained by the prevous
+	// so if the last test passes, then the previous tests should be covered as well. But not sure if this holds for every edge case.
+	// but this is a general rule. Doing it this way because it helps to implement just the simpler tests first
 	tests := []struct {
 		inputFile  string
 		expectedFile string
@@ -48,7 +51,7 @@ func TestTransform(t *testing.T) {
 		}
 		defer expectedFile.Close()
 
-		s := NewStreamBuffer("#", "#")
+		s := NewTaggingBuf("#", "#")
 
 		inputScanner := bufio.NewScanner(inputFile)
 		expectedScanner := bufio.NewScanner(expectedFile)

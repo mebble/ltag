@@ -6,20 +6,20 @@ import (
 	"github.com/gosimple/slug"
 )
 
-type StreamBuffer struct {
+type TaggingBuf struct {
 	iPattern string
 	oPattern string
 	Tags     []string
 }
 
-func NewStreamBuffer(inputPattern, outputPattern string) *StreamBuffer {
-	return &StreamBuffer{
+func NewTaggingBuf(inputPattern, outputPattern string) *TaggingBuf {
+	return &TaggingBuf{
 		iPattern: inputPattern,
 		oPattern: outputPattern,
 	}
 }
 
-func (s *StreamBuffer) Transform(line string) (string, bool) {
+func (s *TaggingBuf) Transform(line string) (string, bool) {
 	if strings.HasPrefix(line, s.iPattern) {
 		return s.transformTagLine(line)
 	} else if line == "" {
@@ -29,7 +29,7 @@ func (s *StreamBuffer) Transform(line string) (string, bool) {
 	}
 }
 
-func (s *StreamBuffer) transformTagLine(line string) (string, bool) {
+func (s *TaggingBuf) transformTagLine(line string) (string, bool) {
 	tag := strings.Trim(line, s.iPattern)
 	if len(s.Tags) > 1 {
 		s.Tags[len(s.Tags)-1] = tag
@@ -39,12 +39,12 @@ func (s *StreamBuffer) transformTagLine(line string) (string, bool) {
 	return "", false
 }
 
-func (s *StreamBuffer) transformEmptyLine(line string) (string, bool) {
+func (s *TaggingBuf) transformEmptyLine(line string) (string, bool) {
 	s.Tags = []string{}
 	return "", false
 }
 
-func (s *StreamBuffer) transformNormalLine(line string) (string, bool) {
+func (s *TaggingBuf) transformNormalLine(line string) (string, bool) {
 	var inlineTagsStr string
 	parts := strings.Split(line, s.iPattern)
 	if len(parts) > 1 {
