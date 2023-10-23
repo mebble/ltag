@@ -1,0 +1,4 @@
+cat
+rat
+parrot
+dog
