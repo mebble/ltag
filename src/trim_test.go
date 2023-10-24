@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFilterTransform(t *testing.T) {
+func TestTrimTransform(t *testing.T) {
 	tests := []struct {
 		inputFile  string
 		expectedFile string
@@ -36,7 +36,7 @@ func TestFilterTransform(t *testing.T) {
 		}
 		defer expectedFile.Close()
 
-		s := NewFilterBuf("#")
+		s := NewTrimmingBuf("#")
 
 		inputScanner := bufio.NewScanner(inputFile)
 		expectedScanner := bufio.NewScanner(expectedFile)
@@ -44,7 +44,7 @@ func TestFilterTransform(t *testing.T) {
 			line := inputScanner.Text()
 			taggedLine, ok := s.Transform(line)
 
-			// in reality it's always ok = true for filterTransform
+			// in reality it's always ok = true for trimmingTransform
 			if !ok {
 				assert.Empty(t, taggedLine)
 				continue

@@ -2,17 +2,17 @@ package ltag
 
 import "strings"
 
-type FilterBuf struct {
+type TrimmingBuf struct {
 	pattern string
 }
 
-func NewFilterBuf(pattern string) *FilterBuf {
-	return &FilterBuf{
+func NewTrimmingBuf(pattern string) *TrimmingBuf {
+	return &TrimmingBuf{
 		pattern: pattern,
 	}
 }
 
-func (s *FilterBuf) Transform(line string) (string, bool) {
+func (s *TrimmingBuf) Transform(line string) (string, bool) {
 	idx := strings.Index(line, s.pattern)
 	if idx == -1 {
 		return line, true
