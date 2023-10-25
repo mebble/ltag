@@ -1,5 +1,7 @@
 # ltag
 
+[![Tests Badge](https://github.com/mebble/ltag/actions/workflows/test.yml/badge.svg)](https://github.com/mebble/ltag/actions/workflows/test.yml)
+
 > A CLI tool to tag your lines based on their headings
 
 ## Basic Usage
@@ -49,11 +51,11 @@ _Scaffolded with `go mod init github.com/mebble/ltag`_
 ### Testing
 
 ```sh
-go test ./src/...
+make test
 ```
 
 ### Benchmarking
 
 ```sh
-source ./benchmarks/run.sh
+make bench
 ```
