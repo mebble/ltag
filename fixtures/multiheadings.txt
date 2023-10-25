@@ -1,0 +1,8 @@
+# animals # mammals
+elephant
+# big cats # felines
+lions
+tigers
+# canines
+dogs
+wolves

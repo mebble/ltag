@@ -9,7 +9,7 @@ import (
 type TaggingBuf struct {
 	iPattern string
 	oPattern string
-	Tags     []string
+	headings []string
 }
 
 func NewTaggingBuf(inputPattern, outputPattern string) *TaggingBuf {
@@ -21,7 +21,7 @@ func NewTaggingBuf(inputPattern, outputPattern string) *TaggingBuf {
 
 func (s *TaggingBuf) Transform(line string) (string, bool) {
 	if strings.HasPrefix(line, s.iPattern) {
-		return s.transformTagLine(line)
+		return s.transformHeadingLine(line)
 	} else if line == "" {
 		return s.transformEmptyLine(line)
 	} else {
@@ -29,18 +29,18 @@ func (s *TaggingBuf) Transform(line string) (string, bool) {
 	}
 }
 
-func (s *TaggingBuf) transformTagLine(line string) (string, bool) {
-	tag := strings.Trim(line, s.iPattern)
-	if len(s.Tags) > 1 {
-		s.Tags[len(s.Tags)-1] = tag
+func (s *TaggingBuf) transformHeadingLine(line string) (string, bool) {
+	heading := strings.Trim(line, s.iPattern)
+	if len(s.headings) > 1 {
+		s.headings[len(s.headings)-1] = heading
 	} else {
-		s.Tags = append(s.Tags, tag)
+		s.headings = append(s.headings, heading)
 	}
 	return "", false
 }
 
 func (s *TaggingBuf) transformEmptyLine(line string) (string, bool) {
-	s.Tags = []string{}
+	s.headings = []string{}
 	return "", false
 }
 
@@ -55,13 +55,16 @@ func (s *TaggingBuf) transformNormalLine(line string) (string, bool) {
 	}
 
 	var tagsStr string
-	for _, tag := range s.Tags {
-		tagsStr = tagsStr + tagify(tag, s.oPattern)
+	for _, heading := range s.headings {
+		parts := strings.Split(heading, s.iPattern)
+		for _, p := range parts {
+			tagsStr = tagsStr + tagify(p, s.oPattern)
+		}
 	}
 
 	return line + tagsStr + inlineTagsStr, true
 }
 
-func tagify(tag, pattern string) string {
-	return " " + pattern + slug.Make(tag)
+func tagify(s, pattern string) string {
+	return " " + pattern + slug.Make(s)
 }
