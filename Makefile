@@ -3,3 +3,6 @@ test:
 
 bench:
 	sh ./benchmarks/run.sh
+
+build:
+	go build -o ltag

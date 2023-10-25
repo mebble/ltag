@@ -1,6 +1,8 @@
 # ltag
 
-[![Tests Badge](https://github.com/mebble/ltag/actions/workflows/test.yml/badge.svg)](https://github.com/mebble/ltag/actions/workflows/test.yml)
+[![CI Tests](https://github.com/mebble/ltag/actions/workflows/test.yml/badge.svg)](https://github.com/mebble/ltag/actions/workflows/test.yml)
+[![CI Release](https://github.com/mebble/ltag/actions/workflows/release.yml/badge.svg)](https://github.com/mebble/ltag/actions/workflows/release.yml)
+[![Downloads on latest release](https://img.shields.io/github/downloads-pre/mebble/ltag/latest/total)](https://github.com/mebble/ltag/releases/latest)
 
 > A CLI tool to tag your lines based on their headings
 

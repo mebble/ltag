@@ -1,0 +1,24 @@
+name: Release
+on:
+  # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushbranchestagsbranches-ignoretags-ignore
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  uberjar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21.0
+      - name: Build for Mac
+        run: make build
+      - name: Release for Mac
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ltag
+          fail_on_unmatched_files: true
