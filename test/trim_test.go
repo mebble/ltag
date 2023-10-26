@@ -5,21 +5,22 @@ import (
 	"os"
 	"testing"
 
+	"github.com/mebble/ltag/internal/ltag"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestTrimTransform(t *testing.T) {
 	tests := []struct {
-		inputFile  string
+		inputFile    string
 		expectedFile string
 	}{
 		{
-			inputFile: "../fixtures/inline.out.txt",
-			expectedFile: "../fixtures/inline.final.txt",
+			inputFile:    "./testdata/inline.out.txt",
+			expectedFile: "./testdata/inline.final.txt",
 		},
 		{
-			inputFile: "../fixtures/noheadings.out.txt",
-			expectedFile: "../fixtures/noheadings.final.txt",
+			inputFile:    "./testdata/noheadings.out.txt",
+			expectedFile: "./testdata/noheadings.final.txt",
 		},
 	}
 
@@ -36,7 +37,7 @@ func TestTrimTransform(t *testing.T) {
 		}
 		defer expectedFile.Close()
 
-		s := NewTrimmingBuf("#")
+		s := ltag.NewTrimmingBuf("#")
 
 		inputScanner := bufio.NewScanner(inputFile)
 		expectedScanner := bufio.NewScanner(expectedFile)

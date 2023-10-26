@@ -5,6 +5,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/mebble/ltag/internal/ltag"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -13,32 +14,32 @@ func TestTagTransform(t *testing.T) {
 	// so if the last test passes, then the previous tests should be covered as well. But not sure if this holds for every edge case.
 	// but this is a general rule. Doing it this way because it helps to implement just the simpler tests first
 	tests := []struct {
-		inputFile  string
+		inputFile    string
 		expectedFile string
 	}{
 		{
-			inputFile: "../fixtures/headings.txt",
-			expectedFile: "../fixtures/headings.out.txt",
+			inputFile:    "./testdata/headings.txt",
+			expectedFile: "./testdata/headings.out.txt",
 		},
 		{
-			inputFile: "../fixtures/subheadings.txt",
-			expectedFile: "../fixtures/subheadings.out.txt",
+			inputFile:    "./testdata/subheadings.txt",
+			expectedFile: "./testdata/subheadings.out.txt",
 		},
 		{
-			inputFile: "../fixtures/noheadings.txt",
-			expectedFile: "../fixtures/noheadings.out.txt",
+			inputFile:    "./testdata/noheadings.txt",
+			expectedFile: "./testdata/noheadings.out.txt",
 		},
 		{
-			inputFile: "../fixtures/inline.txt",
-			expectedFile: "../fixtures/inline.out.txt",
+			inputFile:    "./testdata/inline.txt",
+			expectedFile: "./testdata/inline.out.txt",
 		},
 		{
-			inputFile: "../fixtures/slug.txt",
-			expectedFile: "../fixtures/slug.out.txt",
+			inputFile:    "./testdata/slug.txt",
+			expectedFile: "./testdata/slug.out.txt",
 		},
 		{
-			inputFile: "../fixtures/multiheadings.txt",
-			expectedFile: "../fixtures/multiheadings.out.txt",
+			inputFile:    "./testdata/multiheadings.txt",
+			expectedFile: "./testdata/multiheadings.out.txt",
 		},
 	}
 
@@ -55,7 +56,7 @@ func TestTagTransform(t *testing.T) {
 		}
 		defer expectedFile.Close()
 
-		s := NewTaggingBuf("#", "#")
+		s := ltag.NewTaggingBuf("#", "#")
 
 		inputScanner := bufio.NewScanner(inputFile)
 		expectedScanner := bufio.NewScanner(expectedFile)

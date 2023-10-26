@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"github.com/mebble/ltag/internal/ltag"
 	"os"
-
-	ltag "github.com/mebble/ltag/src"
 )
 
 func main() {
