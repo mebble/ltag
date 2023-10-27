@@ -37,7 +37,7 @@ dogs #animals #canines
 wolves #animals #canines
 ```
 
-For more usage information, run `ltag --help`.
+For more examples, check out the test data at `./test/testdata/`. For more usage information, run `ltag --help`.
 
 ## Features
 
