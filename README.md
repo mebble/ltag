@@ -13,10 +13,10 @@ Imagine you have a file `info.txt`:
 ```
 # animals
 elephant
-# felines
+## felines
 cats
 tigers
-# canines
+## canines
 dogs
 wolves
 ```
