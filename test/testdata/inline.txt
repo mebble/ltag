@@ -2,5 +2,5 @@
 cat # small # feline
 rat # small
 parrot
-# canine
+## canine
 dog # bestfriend

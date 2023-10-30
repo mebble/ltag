@@ -31,16 +31,33 @@ func (s *TaggingBuf) Transform(line string) (string, bool) {
 
 func (s *TaggingBuf) transformHeadingLine(line string) (string, bool) {
 	heading := strings.Trim(line, s.iPattern)
-	if len(s.headings) > 1 {
-		s.headings[len(s.headings)-1] = heading
-	} else {
+	if len(s.headings) == 0 {
 		s.headings = append(s.headings, heading)
+	} else {
+		lastLevel := len(s.headings)
+		currentLevel := getLevel(s.iPattern, line)
+		if currentLevel > lastLevel {
+			s.headings = append(s.headings, heading)
+		} else {
+			s.headings[len(s.headings)-1] = heading
+		}
 	}
 	return "", false
 }
 
+func getLevel(pattern, s string) int {
+	level := 0
+	for _, char := range s {
+		c := string(char)
+		if c != pattern {
+			return level
+		}
+		level++
+	}
+	return level
+}
+
 func (s *TaggingBuf) transformEmptyLine(line string) (string, bool) {
-	s.headings = []string{}
 	return "", false
 }
 

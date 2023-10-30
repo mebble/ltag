@@ -3,7 +3,6 @@ cats
 tigers
 dogs
 wolves
-
 # things
 pen
 book
