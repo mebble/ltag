@@ -41,6 +41,10 @@ func TestTagTransform(t *testing.T) {
 			inputFile:    "./testdata/multiheadings.txt",
 			expectedFile: "./testdata/multiheadings.out.txt",
 		},
+		{
+			inputFile:    "./testdata/skipheadings.txt",
+			expectedFile: "./testdata/skipheadings.out.txt",
+		},
 	}
 
 	for _, tc := range tests {

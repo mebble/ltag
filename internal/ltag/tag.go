@@ -31,13 +31,16 @@ func (s *TaggingBuf) Transform(line string) (string, bool) {
 
 func (s *TaggingBuf) transformHeadingLine(line string) (string, bool) {
 	heading := strings.Trim(line, s.iPattern)
+	currentLevel := getLevel(s.iPattern, line)
 	if len(s.headings) == 0 {
 		s.headings = append(s.headings, heading)
-	} else {
-		currentLevel := getLevel(s.iPattern, line)
+	} else if currentLevel <= len(s.headings) {
 		// the index+1 denotes the level i.e. 0 is level 1, etc. This also means len is last level
 		preservedHeadings := s.headings[:currentLevel-1]
 		s.headings = append(preservedHeadings, heading)
+	} else {
+		emptyHeadings := make([]string, currentLevel - len(s.headings) - 1)
+		s.headings = append(append(s.headings, emptyHeadings...), heading)
 	}
 	return "", false
 }
@@ -64,7 +67,7 @@ func (s *TaggingBuf) transformNormalLine(line string) (string, bool) {
 	if len(parts) > 1 {
 		line = strings.Trim(parts[0], " ")
 		for _, p := range parts[1:] {
-			inlineTagsStr = inlineTagsStr + tagify(p, s.oPattern)
+			inlineTagsStr = inlineTagsStr + tagify(s.oPattern, p)
 		}
 	}
 
@@ -72,13 +75,16 @@ func (s *TaggingBuf) transformNormalLine(line string) (string, bool) {
 	for _, heading := range s.headings {
 		parts := strings.Split(heading, s.iPattern)
 		for _, p := range parts {
-			tagsStr = tagsStr + tagify(p, s.oPattern)
+			tagsStr = tagsStr + tagify(s.oPattern, p)
 		}
 	}
 
 	return line + tagsStr + inlineTagsStr, true
 }
 
-func tagify(s, pattern string) string {
+func tagify(pattern, s string) string {
+	if s == "" {
+		return ""
+	}
 	return " " + pattern + slug.Make(s)
 }
