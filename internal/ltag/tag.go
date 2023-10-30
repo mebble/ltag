@@ -34,13 +34,10 @@ func (s *TaggingBuf) transformHeadingLine(line string) (string, bool) {
 	if len(s.headings) == 0 {
 		s.headings = append(s.headings, heading)
 	} else {
-		lastLevel := len(s.headings)
 		currentLevel := getLevel(s.iPattern, line)
-		if currentLevel > lastLevel {
-			s.headings = append(s.headings, heading)
-		} else {
-			s.headings[len(s.headings)-1] = heading
-		}
+		// the index+1 denotes the level i.e. 0 is level 1, etc. This also means len is last level
+		preservedHeadings := s.headings[:currentLevel-1]
+		s.headings = append(preservedHeadings, heading)
 	}
 	return "", false
 }
