@@ -86,5 +86,5 @@ func tagify(pattern, s string) string {
 	if s == "" {
 		return ""
 	}
-	return " " + pattern + slug.Make(s)
+	return " " + strings.Replace(pattern, "$", slug.Make(s), 1)
 }

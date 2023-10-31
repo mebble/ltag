@@ -9,15 +9,17 @@ import (
 )
 
 func main() {
-	ip := flag.String("ip", "#", "Input pattern: string used to identify lines that will become tags")
-	op := flag.String("op", "#", "Output pattern: string that will become the starting string of each tag")
+	ip := flag.String("ip", ltag.DefaultIPattern, "Input pattern: string used to identify \"headings\", i.e. lines that will become tags. If a line starts with multiple occurrences of this string, that line will be considered a \"sub-heading\"")
+	op := flag.String("op", ltag.DefaultOPattern, "Output pattern: string that specifies the format of the tags. \"$\" is the tag placeholder")
 	trim := flag.Bool("trim", false, "Trim off the tags from lines that have been ltagged")
 
 	flag.Parse()
 
-	var operation ltag.Operation = ltag.NewTaggingBuf(*ip, *op)
+	var operation ltag.Operation
 	if *trim {
 		operation = ltag.NewTrimmingBuf(*ip)
+	} else {
+		operation = ltag.NewTaggingBuf(*ip, *op)
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)

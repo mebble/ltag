@@ -43,7 +43,7 @@ For more examples, check out the test data at `./test/testdata/`. For more usage
 
 - Tag the lines to the values of headings, sub-headings and inline tags
 - Tags are slugified
-- Customise the string pattern used to identify and to format the tags
+- Customise the string pattern used to identify headings and to format the tags
 - Trim off the tags from lines that have already been ltagged
 
 ## Development

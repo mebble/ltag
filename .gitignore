@@ -1,6 +1,7 @@
 # output binary
 ltag
 !internal/ltag/
+!cmd/ltag/
 
 # misc
 .DS_Store

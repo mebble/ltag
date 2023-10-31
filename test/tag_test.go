@@ -16,34 +16,56 @@ func TestTagTransform(t *testing.T) {
 	tests := []struct {
 		inputFile    string
 		expectedFile string
+		ipattern     string
+		opattern     string
 	}{
 		{
 			inputFile:    "./testdata/headings.txt",
 			expectedFile: "./testdata/headings.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
 		},
 		{
 			inputFile:    "./testdata/subheadings.txt",
 			expectedFile: "./testdata/subheadings.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
 		},
 		{
 			inputFile:    "./testdata/noheadings.txt",
 			expectedFile: "./testdata/noheadings.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
 		},
 		{
 			inputFile:    "./testdata/inline.txt",
 			expectedFile: "./testdata/inline.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
 		},
 		{
 			inputFile:    "./testdata/slug.txt",
 			expectedFile: "./testdata/slug.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
 		},
 		{
 			inputFile:    "./testdata/multiheadings.txt",
 			expectedFile: "./testdata/multiheadings.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
 		},
 		{
 			inputFile:    "./testdata/skipheadings.txt",
 			expectedFile: "./testdata/skipheadings.out.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     ltag.DefaultOPattern,
+		},
+		{
+			inputFile:    "./testdata/inline.txt",
+			expectedFile: "./testdata/inline.out.placeholder.txt",
+			ipattern:     ltag.DefaultIPattern,
+			opattern:     "[[$]]",
 		},
 	}
 
@@ -60,7 +82,7 @@ func TestTagTransform(t *testing.T) {
 		}
 		defer expectedFile.Close()
 
-		s := ltag.NewTaggingBuf("#", "#")
+		s := ltag.NewTaggingBuf(tc.ipattern, tc.opattern)
 
 		inputScanner := bufio.NewScanner(inputFile)
 		expectedScanner := bufio.NewScanner(expectedFile)
