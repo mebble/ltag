@@ -9,8 +9,12 @@ permissions:
   contents: write
 
 jobs:
-  binary-linux:
-    runs-on: ubuntu-latest
+  build:
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
