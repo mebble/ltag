@@ -1,5 +1,5 @@
 # animal
-cat # small # feline
+cat # small #feline
 rat # small
 parrot
 ## canine

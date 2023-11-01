@@ -1,0 +1,4 @@
+# animal
+cat @ small @ feline
+rat # not tag
+parrot

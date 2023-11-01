@@ -1,0 +1,3 @@
+cat #animal #small #feline
+rat # not tag #animal
+parrot #animal
