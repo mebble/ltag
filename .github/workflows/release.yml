@@ -13,8 +13,8 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+        os: [{ os: ubuntu-latest, zipfile: linux }, { os: macos-latest, zipfile: mac }]
+    runs-on: ${{ matrix.os.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -23,9 +23,11 @@ jobs:
         with:
           go-version: 1.21.0
       - name: Build
-        run: make build
+        run: |
+          make build
+          tar -czvf ltag-${{ github.ref_name }}-${{ matrix.os.zipfile }}.tar.gz ./ltag
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ltag
+          files: ltag-${{ github.ref_name }}-${{ matrix.os.zipfile }}.tar.gz
           fail_on_unmatched_files: true
